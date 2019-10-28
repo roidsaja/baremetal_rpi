@@ -33,6 +33,20 @@ etc.  So what happens when one person writes some bare metal code, no
 operating system involved, that can open, read, write, close files on
 the sd card on the Raspberry Pi, then shares that code?  Is that bare
 metal? Tough question.
+- - - -
+## Explanation of program
+The RaspberryPi 3 has 53 registers controlling I/O pins(peripherals). The pins are grouped together and each group is assigned to a register(bank). As for the GPIO the SELECT,SET and CLEAR registers are necessary. To access these registers we need the physical address' of these registers. From the datasheet the offset of the address will be added to the base address in order to access physical adress. The datasheet only lists the virtual address which are values that the OS assigns. Since there's no Operating System involved, as in a Debian img, we do not need the virtual addressing and directly use the physical address.
+
+#### Base Address of I/O:
+The PDF on page 6 states the base address to be 0x3F000000, however this address doesn't seemed to work therefore use 0x3F200000.
+
+#### Offset of FSEL2(SELECT):
+Not the whole address stated on the PDF. The PDF lists FSEL2 at 0x7E200008 but this addess refers to the virtual addressing. The virtual addressing uses 0x7E20 and its offset will be whatever is on the other side of the nibble. In this case the FSEL2 offset is 0x08.
+
+#### Offset of GPSET0(SET): 0x1c
+
+#### Offset of GPCLR0(CLEAR): 0x28
+
 
 ## License
 This project is licensed by MIT
