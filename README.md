@@ -47,6 +47,11 @@ Not the whole address stated on the PDF. The PDF lists FSEL2 at 0x7E200008 but t
 
 #### Offset of GPCLR0(CLEAR): 0x28
 
+So you probably noticed that the data-sheet lists 4 SELECT registers, 2 SET registers, and 2 CLEAR registers so why did I choose the ones I did? This is because we want to use GPIO 21 and FSEL2 controls GPIO 20-29, SET0 and CLR0 controls GPIO 0-31. The FSEL registers assigns three bits for every GPIO pin. Since we are using FSEL2 that means bits 0-2 control GPIO 20, and bits 3-5 control GPIO 21 and so on. The Set and CLR registers assign a single bit to every pin. For example, bit 0 in SET0 and CLR0 controls GPIO 1. To control GPIO 21 you would set bit 21 in SET0 and CLR0.
+
+* FSEL2 register will be used to set GPIO 21 to output. To set a pin to output you need to set the lo order bit of the three bits to 1. So if bits 3-5 control GPIO 21 that means we need to set the first bit, bit 3 to 1. This will tell the pi that we want to use GPIO 21 as an output. So if we were to look at the 3 bits for GPIO 21 they should look like this after we set it to output, b001.
+* GPSET0 tells the pi to turn on the pin(output a voltage). To do this we just toggle the bit that corresponds with the GPIO pin we want. In our, case bit 21.
+* GPCLR0 tells the pi to turn off the pin(no voltage). To turn off the pin set the bit to the corresponding GPIO pin. In our case bit 21
 
 ## License
 This project is licensed by MIT
