@@ -53,5 +53,9 @@ So you probably noticed that the data-sheet lists 4 SELECT registers, 2 SET regi
 * GPSET0 tells the pi to turn on the pin(output a voltage). To do this we just toggle the bit that corresponds with the GPIO pin we want. In our, case bit 21.
 * GPCLR0 tells the pi to turn off the pin(no voltage). To turn off the pin set the bit to the corresponding GPIO pin. In our case bit 21
 
+
+## Setup
+* Simply run `Makefile` and you can change the var `code=` to the suitable assembly program names, running `make` in the terminal will do all the work of compiling into ARM ready .img file. You will generate 3 different files after running successfully: kernel.img; kernel.o; and kernel.elf. The `kernel.img` is the .img file that you replace in your microSD card, simply rename existing kernel.img/kernelXX.img into a txt file or html file.
+
 ## License
 This project is licensed by MIT
